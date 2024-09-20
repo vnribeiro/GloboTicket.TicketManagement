@@ -1,17 +1,16 @@
 ﻿using AutoMapper;
 using GloboTicket.TicketManagement.Application.Contracts.Persistence;
-using GloboTicket.TicketManagement.Application.Features.Events.ViewModels;
 using GloboTicket.TicketManagement.Domain.Entities;
 using MediatR;
 
-namespace GloboTicket.TicketManagement.Application.Features.Events;
+namespace GloboTicket.TicketManagement.Application.Features.Events.Queries.GetEventsList;
 
 public class GetEventsListQueryHandler : IRequestHandler<GetEventListQuery, List<EventListVm>>
 {
     private readonly IAsyncRepository<Event> _eventRepository;
     private readonly IMapper _mapper;
 
-    public GetEventsListQueryHandler(IAsyncRepository<Event> eventRepository, 
+    public GetEventsListQueryHandler(IAsyncRepository<Event> eventRepository,
         IMapper mapper)
     {
         _eventRepository = eventRepository;

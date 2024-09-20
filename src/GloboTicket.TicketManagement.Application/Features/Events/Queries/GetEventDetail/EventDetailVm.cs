@@ -1,6 +1,4 @@
-﻿using GloboTicket.TicketManagement.Application.Features.Events.Dtos;
-
-namespace GloboTicket.TicketManagement.Application.Features.Events.ViewModels;
+﻿namespace GloboTicket.TicketManagement.Application.Features.Events.Queries.GetEventDetail;
 
 public class EventDetailVm
 {

@@ -1,4 +1,4 @@
-﻿namespace GloboTicket.TicketManagement.Application.Features.Events.ViewModels;
+﻿namespace GloboTicket.TicketManagement.Application.Features.Events.Queries.GetEventsList;
 
 public class EventListVm
 {
