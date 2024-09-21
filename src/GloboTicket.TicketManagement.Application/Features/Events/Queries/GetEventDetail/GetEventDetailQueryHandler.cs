@@ -23,9 +23,12 @@ public class GetEventDetailQueryHandler : IRequestHandler<GetEventDetailQuery, E
     public async Task<EventDetailVm> Handle(GetEventDetailQuery request, CancellationToken cancellationToken)
     {
         var eventEntity = await _eventRepository.GetByIdAsync(request.Id);
-        var eventDetailDto = _mapper.Map<EventDetailVm>(eventEntity);
+
+        if (eventEntity is null) 
+            return default!;
 
         // Get the category and map to DTO
+        var eventDetailDto = _mapper.Map<EventDetailVm>(eventEntity);
         var category = await _categoryRepository.GetByIdAsync(eventEntity.CategoryId);
         eventDetailDto.Category = _mapper.Map<CategoryDto>(category);
         return eventDetailDto;
