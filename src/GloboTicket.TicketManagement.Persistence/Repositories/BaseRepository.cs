@@ -4,11 +4,11 @@ using GloboTicket.TicketManagement.Application.Contracts.Persistence;
 
 namespace GloboTicket.TicketManagement.Persistence.Repositories;
 
-public class BaseRepository<T> : IAsyncRepository<T> where T : class
+public abstract class BaseRepository<T> : IAsyncRepository<T> where T : class
 {
     protected readonly GloboTicketDbContext GloboTicketDbContext;
 
-    public BaseRepository(GloboTicketDbContext dbContext)
+    protected BaseRepository(GloboTicketDbContext dbContext)
     {
         GloboTicketDbContext = dbContext;
     }
