@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GloboTicket.TicketManagement.Application.Features.Categories.Commands.CreateCategory;
 using GloboTicket.TicketManagement.Application.Features.Categories.Queries.GetCategoriesList;
 using GloboTicket.TicketManagement.Application.Features.Categories.Queries.GetCategoriesListWithEvents;
 using GloboTicket.TicketManagement.Application.Features.Events.Commands.CreateEvent;
@@ -16,13 +17,16 @@ public class MappingProfile : Profile
         //Events
         CreateMap<Event, EventListVm>().ReverseMap();
         CreateMap<Event, EventDetailVm>().ReverseMap();
+        CreateMap<Event, CategoryEventDto>().ReverseMap();
         CreateMap<Event, CreateEventCommand>().ReverseMap();
         CreateMap<Event, UpdateEventCommand>().ReverseMap();
         CreateMap<Event, CategoryEventDto>().ReverseMap();
 
         // Categories
         CreateMap<Category, CategoryDto>().ReverseMap();
-        CreateMap<Category, CategoryListVm>();
-        CreateMap<Category, CategoryEventListVm>();
+        CreateMap<Category, CategoryListVm>().ReverseMap();
+        CreateMap<Category, CategoryEventListVm>().ReverseMap();
+        CreateMap<Category, CreateCategoryCommand>().ReverseMap();
+        CreateMap<Category, CreateCategoryDto>().ReverseMap();
     }
 }

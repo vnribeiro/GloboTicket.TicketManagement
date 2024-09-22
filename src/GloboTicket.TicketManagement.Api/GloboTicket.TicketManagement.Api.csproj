@@ -13,10 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\v1\" />
-  </ItemGroup>
-
-  <ItemGroup>
+	  <PackageReference Include="MediatR" Version="12.4.1" />
 	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3" />
 	  <PackageReference Include="Asp.Versioning.Http" Version="8.1.0" />
 	  <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.0" />

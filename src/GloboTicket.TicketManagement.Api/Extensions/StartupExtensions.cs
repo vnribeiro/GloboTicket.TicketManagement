@@ -1,7 +1,9 @@
 ﻿using Asp.Versioning.ApiExplorer;
 using GloboTicket.TicketManagement.Application.Extensions;
 using GloboTicket.TicketManagement.Infrastructure.Extensions;
+using GloboTicket.TicketManagement.Persistence.Data;
 using GloboTicket.TicketManagement.Persistence.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace GloboTicket.TicketManagement.Api.Extensions;
 
@@ -36,12 +38,18 @@ public static class StartupExtensions
                         .AllowAnyHeader()
                         .AllowCredentials()));
 
+        // Enable SwaggerGen
+        builder.Services
+            .AddSwaggerGen();
 
         return builder.Build();
     }
 
     public static WebApplication ConfigurePipeline(this WebApplication app)
     {
+        // Enable CORS
+        app.UseCors("open");
+
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
@@ -61,9 +69,9 @@ public static class StartupExtensions
             });
         }
 
-        app.UseCors("open");
         app.UseHttpsRedirection();
         app.MapControllers();
+
         return app;
     }
 }
