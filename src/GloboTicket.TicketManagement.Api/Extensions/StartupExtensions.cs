@@ -1,4 +1,6 @@
 ﻿using Asp.Versioning.ApiExplorer;
+using GloboTicket.TicketManagement.Api.Services;
+using GloboTicket.TicketManagement.Application.Contracts;
 using GloboTicket.TicketManagement.Application.Extensions;
 using GloboTicket.TicketManagement.Infrastructure.Extensions;
 using GloboTicket.TicketManagement.Persistence.Data;
@@ -22,6 +24,13 @@ public static class StartupExtensions
 
         // Add controllers
         builder.Services.AddControllers();
+
+        // Log
+        builder.Services
+            .AddScoped<ILoggedInUserService, LoggedInUserService>();
+
+        builder.Services
+            .AddHttpContextAccessor();
 
         // Add CORS
         builder.Services
