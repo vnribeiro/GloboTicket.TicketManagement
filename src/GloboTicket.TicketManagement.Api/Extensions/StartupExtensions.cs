@@ -39,7 +39,7 @@ public static class StartupExtensions
                     policy.WithOrigins([
                             builder.Configuration["ApiUrl"] ??
                             "https://localhost:7020",
-                            builder.Configuration["BlazorUrl"] ?? 
+                            builder.Configuration["BlazorUrl"] ??
                             "https://localhost:7080"
                         ])
                         .AllowAnyMethod()
