@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using GloboTicket.TicketManagement.Api.Middleware;
 using Microsoft.OpenApi.Models;
 
 namespace GloboTicket.TicketManagement.Api.Extensions;
@@ -113,5 +114,15 @@ public static class PresentationServiceRegistrationExtensions
             builder.Configuration.AddUserSecrets<Program>();
 
         return builder;
+    }
+
+    /// <summary>
+    /// Configures a middleware for the application.
+    /// </summary>
+    /// <param name="builder">The web application builder to configure.</param>
+    /// <returns>The updated web application builder.</returns>
+    public static IApplicationBuilder UseCustomExceptionHandler(this IApplicationBuilder builder)
+    {
+        return builder.UseMiddleware<ExceptionHandlerMiddleware>();
     }
 }

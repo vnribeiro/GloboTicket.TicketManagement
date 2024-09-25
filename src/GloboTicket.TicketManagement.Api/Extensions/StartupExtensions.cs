@@ -1,11 +1,13 @@
-﻿using Asp.Versioning.ApiExplorer;
+﻿using System.Security.Claims;
+using Asp.Versioning.ApiExplorer;
 using GloboTicket.TicketManagement.Api.Services;
 using GloboTicket.TicketManagement.Application.Contracts;
 using GloboTicket.TicketManagement.Application.Extensions;
+using GloboTicket.TicketManagement.Identity.Extensions;
+using GloboTicket.TicketManagement.Identity.Models;
 using GloboTicket.TicketManagement.Infrastructure.Extensions;
-using GloboTicket.TicketManagement.Persistence.Data;
 using GloboTicket.TicketManagement.Persistence.Extensions;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace GloboTicket.TicketManagement.Api.Extensions;
 
@@ -20,7 +22,8 @@ public static class StartupExtensions
         builder.Services
         .AddApplicationServices()
         .AddPersistenceServices(builder.Configuration)
-        .AddInfrastructureServices(builder.Configuration);
+        .AddInfrastructureServices(builder.Configuration)
+        .AddIdentityServices(builder.Configuration);
 
         // Add controllers
         builder.Services.AddControllers();
@@ -47,15 +50,23 @@ public static class StartupExtensions
                         .AllowAnyHeader()
                         .AllowCredentials()));
 
-        // Enable SwaggerGen
-        builder.Services
-            .AddSwaggerGen();
-
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
         return builder.Build();
     }
 
     public static WebApplication ConfigurePipeline(this WebApplication app)
     {
+        // Minimals for Identity
+        app.MapIdentityApi<ApplicationUser>();
+
+        app.MapPost("/logout", 
+            async (ClaimsPrincipal user, SignInManager<ApplicationUser> signInManager) =>
+            {
+                await signInManager.SignOutAsync();
+                return TypedResults.Ok();
+            });
+
         // Enable CORS
         app.UseCors("open");
 
@@ -77,6 +88,9 @@ public static class StartupExtensions
                 }
             });
         }
+
+        // Enable Middleware
+        app.UseCustomExceptionHandler();
 
         app.UseHttpsRedirection();
         app.MapControllers();

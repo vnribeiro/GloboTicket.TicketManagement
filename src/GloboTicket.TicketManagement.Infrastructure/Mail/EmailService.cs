@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using GloboTicket.TicketManagement.Application.Contracts.Infrastructure;
 using GloboTicket.TicketManagement.Application.Models.Mail;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SendGrid.Helpers.Mail;
 using SendGrid;
@@ -10,9 +11,12 @@ namespace GloboTicket.TicketManagement.Infrastructure.Mail;
 public class EmailService : IEmailService
 {
     public EmailSettings EmailSettings { get; }
+    private ILogger<EmailService> _logger;
 
-    public EmailService(IOptions<EmailSettings> settings)
+    public EmailService(IOptions<EmailSettings> settings, 
+        ILogger<EmailService> logger)
     {
+        _logger = logger;
         EmailSettings = settings.Value;
     }
 
